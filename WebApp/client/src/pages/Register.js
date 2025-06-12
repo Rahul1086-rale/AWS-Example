@@ -1,15 +1,8 @@
+// src/pages/Register.js
 import React, { useState } from "react";
 import {
-  Avatar,
-  Button,
-  TextField,
-  Link,
-  Paper,
-  Box,
-  Grid,
-  Typography,
-  InputAdornment,
-  IconButton
+  Avatar, Button, TextField, Link, Paper, Box, Typography,
+  IconButton, InputAdornment, Container
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -45,38 +38,18 @@ const Register = () => {
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
-        sx={{
-          backgroundImage: "url(https://source.unsplash.com/random?signup)",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: (t) =>
-            t.palette.mode === "light" ? t.palette.grey[50] : t.palette.grey[900],
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}
+    >
+      <Paper elevation={6} sx={{ p: 4, borderRadius: 3, width: "100%" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Register
-          </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Typography component="h1" variant="h5">Register</Typography>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1, width: "100%" }}>
             <TextField
               margin="normal"
               required
@@ -101,10 +74,7 @@ const Register = () => {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setShowPassword(!showPassword)}
-                      edge="end"
-                    >
+                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
@@ -114,9 +84,7 @@ const Register = () => {
             {message && (
               <Typography
                 sx={{ mt: 1 }}
-                color={
-                  message.toLowerCase().includes("success") ? "primary" : "error"
-                }
+                color={message.toLowerCase().includes("success") ? "primary" : "error"}
               >
                 {message}
               </Typography>
@@ -129,17 +97,13 @@ const Register = () => {
             >
               Register
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Login
-                </Link>
-              </Grid>
-            </Grid>
+            <Link href="/login" variant="body2" display="block" align="center">
+              Already have an account? Login
+            </Link>
           </Box>
         </Box>
-      </Grid>
-    </Grid>
+      </Paper>
+    </Container>
   );
 };
 

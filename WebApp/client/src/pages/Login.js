@@ -1,19 +1,13 @@
-import React, { useState } from "react";
+// src/pages/Login.js
+import React, { useState, useContext } from "react";
 import {
-  Avatar,
-  Button,
-  TextField,
-  Link,
-  Paper,
-  Box,
-  Typography,
-  IconButton,
-  InputAdornment,
-  Container,
+  Avatar, Button, TextField, Link, Paper, Box, Typography,
+  IconButton, InputAdornment, Container
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff, LightMode, DarkMode } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { ColorModeContext } from "../ThemeContext";
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
@@ -21,6 +15,7 @@ const Login = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { toggleColorMode } = useContext(ColorModeContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,21 +37,20 @@ const Login = ({ onLogin }) => {
     <Container
       component="main"
       maxWidth="xs"
-      sx={{
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+      sx={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       <Paper elevation={6} sx={{ p: 4, borderRadius: 3, width: "100%" }}>
+        <Box display="flex" justifyContent="flex-end">
+          <IconButton onClick={toggleColorMode} size="small">
+            <LightMode />
+            <DarkMode />
+          </IconButton>
+        </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Login
-          </Typography>
+          <Typography component="h1" variant="h5">Login</Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: "100%" }}>
             <TextField
               margin="normal"
@@ -98,10 +92,23 @@ const Login = ({ onLogin }) => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                borderRadius: "28px", // matches M3 rounded buttons
+                textTransform: "none",
+                paddingY: "10px",
+                fontWeight: 500,
+                fontSize: "0.875rem", // corresponds to 'label-large'
+                boxShadow: "none",
+                "&:hover": {
+                  boxShadow: "0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)",
+                },
+              }}
             >
               Sign In
             </Button>
+
             <Link href="/register" variant="body2" display="block" align="center">
               Don't have an account? Register
             </Link>

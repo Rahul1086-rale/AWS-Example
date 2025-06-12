@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from "react";
+// src/App.js
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import { ThemeModeProvider } from "./ThemeContext";
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
-
-  useEffect(() => {
-    if (token) {
-      const { exp } = jwtDecode(token);
-      if (Date.now() >= exp * 1000) handleLogout();
-    }
-  }, [token]);
 
   const handleLogin = (newToken) => {
     setToken(newToken);
@@ -26,14 +20,33 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={token ? <Dashboard token={token} onLogout={handleLogout} /> : <Navigate to="/login" />}
-        />
-        <Route path="/login" element={token ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
-        <Route path="/register" element={token ? <Navigate to="/" /> : <Register />} />
-      </Routes>
-    </Router>
+    <ThemeModeProvider>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              token ? (
+                <Dashboard token={token} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              token ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Login onLogin={handleLogin} />
+              )
+            }
+          />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Router>
+    </ThemeModeProvider>
   );
 };
 
