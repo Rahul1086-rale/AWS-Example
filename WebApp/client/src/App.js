@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import { ThemeModeProvider } from "./ThemeContext";
-
+import { jwtDecode } from "jwt-decode";
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
 
