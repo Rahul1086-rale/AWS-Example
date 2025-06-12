@@ -8,6 +8,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Visibility, VisibilityOff, LightMode, DarkMode } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { ColorModeContext } from "../ThemeContext";
+import ThemeToggle from "../components/ThemeToggle"; // at top
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState("");
@@ -40,12 +41,6 @@ const Login = ({ onLogin }) => {
       sx={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       <Paper elevation={6} sx={{ p: 4, borderRadius: 3, width: "100%" }}>
-        <Box display="flex" justifyContent="flex-end">
-          <IconButton onClick={toggleColorMode} size="small">
-            <LightMode />
-            <DarkMode />
-          </IconButton>
-        </Box>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
             <LockOutlinedIcon />
@@ -115,6 +110,7 @@ const Login = ({ onLogin }) => {
           </Box>
         </Box>
       </Paper>
+      <ThemeToggle />
     </Container>
   );
 };

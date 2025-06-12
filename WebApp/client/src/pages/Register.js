@@ -7,6 +7,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import ThemeToggle from "../components/ThemeToggle"; // at top
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -103,6 +104,7 @@ const Register = () => {
           </Box>
         </Box>
       </Paper>
+      <ThemeToggle />
     </Container>
   );
 };
