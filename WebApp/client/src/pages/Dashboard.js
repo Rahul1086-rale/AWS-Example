@@ -72,7 +72,19 @@ useEffect(() => {
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
-        <Button variant="contained" onClick={addTask}>
+        <Button variant="contained" onClick={addTask} sx={{
+                mt: 1,
+                mb: 2,
+                borderRadius: "28px", // matches M3 rounded buttons
+                textTransform: "none",
+                paddingY: "10px",
+                fontWeight: 500,
+                fontSize: "0.875rem", // corresponds to 'label-large'
+                boxShadow: "none",
+                "&:hover": {
+                  boxShadow: "0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)",
+                },
+          }}>
           Add
         </Button>
       </Box>

@@ -94,6 +94,7 @@ const Register = () => {
               type="submit"
               fullWidth
               variant="contained"
+              disabled={!username || !password}
               sx={{ mt: 3, mb: 2 }}
             >
               Register

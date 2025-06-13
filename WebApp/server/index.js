@@ -51,12 +51,24 @@ function authenticate(req, res, next) {
 // Register route
 app.post("/api/register", (req, res) => {
   const { username, password } = req.body;
+
+  // ✅ Basic validation
+  if (!username || !password || username.trim() === "" || password.trim() === "") {
+    return res.status(400).json({ error: "Username and password are required." });
+  }
+
+  // Optionally add further checks:
+  if (password.length < 6) {
+    return res.status(400).json({ error: "Password must be at least 6 characters long." });
+  }
+
   const hashed = bcrypt.hashSync(password, 8);
-  db.run(`INSERT INTO users (username, password) VALUES (?, ?)`, [username, hashed], function (err) {
-    if (err) return res.status(400).json({ error: err.message });
+  db.run(`INSERT INTO users (username, password) VALUES (?, ?)`, [username.trim(), hashed], function (err) {
+    if (err) return res.status(400).json({ error: "Username already exists or invalid data." });
     res.status(201).json({ id: this.lastID });
   });
 });
+
 
 // Login route
 app.post("/api/login", (req, res) => {
